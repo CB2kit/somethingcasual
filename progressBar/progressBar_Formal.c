@@ -7,10 +7,15 @@
  and it's amount is 32 totally.*/
 
 void hideCursor();
+void showCursor();
 void progressBar(int b, int c);
 
 void hideCursor() {
 	CONSOLE_CURSOR_INFO cursor_info = {1, 0};	// the last '0' represents invisible
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+}
+void showCursor() {
+	CONSOLE_CURSOR_INFO cursor_info = {1, 1};	// the last '0' represents invisible
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 void progressBar(int b, int c) {
@@ -36,8 +41,8 @@ int main() {
 //	use:
 	SetConsoleOutputCP(437);
 //	if not, annotate the sentences above.
-//	hideCursor();
-
+	
+	hideCursor();
 	for (i = 0; i < num + 1; i++) {
 		count = 100 * i / num;	
 		printf("\r");
@@ -50,6 +55,7 @@ int main() {
 
 	Sleep(100);
 	printf(" Status: Compeleted.\n");
+	showCursor();
 
 	return 0;
 }
